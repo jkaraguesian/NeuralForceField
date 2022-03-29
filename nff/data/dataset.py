@@ -175,7 +175,20 @@ class Dataset(TorchDataset):
                 props[key] = to_tensor(val)
 
         return props
-
+    
+    def generate_atom_initializations(self,atom_inits):
+        
+        
+        for idx in range(len(self.props["nxyz"])):
+            
+            curr_nxyz = self.props["nxyz"][idx]
+            
+            initial_rep = np.vstack([atom_inits[str(n)] for n in curr_nxyz[:,0]])
+            
+            self.props["init"][idx] = to_tensor(initial_rep)
+            
+            
+        
     def generate_neighbor_list(self,
                                cutoff,
                                undirected=True,
@@ -588,6 +601,8 @@ class Dataset(TorchDataset):
             raise TypeError(
                 '{} is not an instance from {}'.format(path, type(cls))
             )
+            
+
 
 
 def force_to_energy_grad(dataset):

@@ -341,6 +341,26 @@ class EmbeddingBlock(nn.Module):
                .to(s_i.device))
 
         return s_i, v_i
+    
+    
+class NewEmbeddingBlock(nn.Module):
+    def __init__(self,init_size,
+                 feat_dim):
+
+        super().__init__()
+        self.atom_embed = nn.Linear(inp_size, feat_dim, padding_idx=0)
+        self.feat_dim = feat_dim
+
+    def forward(self,
+                init_vec,num_atoms,
+                **kwargs):
+
+        sz = init_vec.shape[0]
+        s_i = self.atom_embed(init_vec)
+        v_i = (torch.zeros(num_atoms, self.feat_dim, 3)
+               .to(s_i.device))
+
+        return s_i, v_i
 
 
 class NbrEmbeddingBlock(nn.Module):
