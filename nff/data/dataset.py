@@ -179,14 +179,15 @@ class Dataset(TorchDataset):
     
     def generate_atom_initializations(self,atom_inits):
         
+        self.props["init"] = []
         
-        for idx in range(len(self.props["nxyz"])):
+        for idx in tqdm(range(len(self.props["nxyz"]))):
             
             curr_nxyz = self.props["nxyz"][idx]
             
-            initial_rep = np.vstack([atom_inits[str(n)] for n in curr_nxyz[:,0]])
+            initial_rep = np.vstack([atom_inits[str(int(n))] for n in curr_nxyz[:,0]])
             
-            self.props["init"][idx] = to_tensor(initial_rep)
+            self.props["init"].append(torch.tensor(initial_rep))
             
             
         

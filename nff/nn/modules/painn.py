@@ -348,7 +348,7 @@ class NewEmbeddingBlock(nn.Module):
                  feat_dim):
 
         super().__init__()
-        self.atom_embed = nn.Linear(inp_size, feat_dim, padding_idx=0)
+        self.atom_embed = nn.Linear(init_size, feat_dim)
         self.feat_dim = feat_dim
 
     def forward(self,
