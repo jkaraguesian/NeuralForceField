@@ -275,7 +275,10 @@ class Dataset(TorchDataset):
                 cutoff=cutoff,
                 directed=(not undirected)
             )
-            nbrs, offs = atoms.update_nbr_list()
+            try:
+                nbrs, offs = atoms.update_nbr_list()
+            except:
+                breakpoint()
             nbrlist.append(nbrs)
             offsets.append(offs)
 
